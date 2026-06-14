@@ -231,6 +231,7 @@
 | 11 | [解決済] | Spring Security のフィルタリングは自動か？ | 自動。`spring-boot-starter-security` を追加するだけでフィルターチェーン（LogoutFilter・UsernamePasswordAuthenticationFilter等）が有効になる。SecurityConfig はデフォルト設定を上書きするためのもの。フィルターチェーンはControllerより手前で動作し、条件に合うリクエストはControllerに届く前に処理が完了する。 |
 | 12 | [解決済] | HTTPステータス302とは何か？ | 「一時的に別のURLへ移動してください」を意味するリダイレクト。サーバーが302とLocationヘッダーを返すと、ブラウザが自動でそのURLにGETリクエストを送る。Springの `return "redirect:/xxx"` は302を返す。301（永久移動・キャッシュされる）との違いに注意。主要コード: 200=成功, 201=作成成功, 302=一時リダイレクト, 400=リクエスト不正, 401=未認証, 403=権限なし, 404=見つからない, 500=サーバーエラー。 |
 | 13 | [解決済] | `GET /login` だけ用意して `?logout` がなくても `/login?logout` に到達できるか？ | できる。クエリパラメータはルーティングに影響しない。`/login?logout` も `/login?error` も `/login` も全て `@GetMapping("/login")` が受け取る。`?logout` はThymeleafがメッセージ表示の判断に使う付加情報であり、ルーティングの条件ではない。 |
+| 14 | [解決済] | `@ManyToOne` / `FetchType.LAZY` / `@JoinColumn` とは何か？ | `@ManyToOne` は多対1のリレーション定義（タスク多:ユーザー1）。`FetchType.LAZY` は遅延取得で `getUser()` を呼んだ瞬間にSELECTされる（商用現場の基本。EAGERは毎回JOIN されパフォーマンス悪化）。`@JoinColumn(name = "user_id")` はDBの外部キーカラム名を指定。`nullable = false` はNULL禁止。 |
 
 <!--
 記入例:
